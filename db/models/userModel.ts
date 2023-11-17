@@ -1,9 +1,18 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
-const userSchema = new mongoose.Schema({
+type Role = 'admin' | 'user';
+
+type UserType = {
+    email: string;
+    password: string;
+    role: Role
+};
+
+const userSchema = new mongoose.Schema<UserType>({
     email: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    role: {type: String, required: true}
 });
 
 userSchema.pre('save', async function(next) {
@@ -15,4 +24,4 @@ userSchema.pre('save', async function(next) {
     next();
 });
 
-export const User = mongoose.model('User', userSchema);
+export const User = mongoose.model<UserType>('User', userSchema);

@@ -74,9 +74,48 @@
  *     responses:
  *       201:
  *         description: User registered successfully.
+ *       501:
+ *         description: User already exists.
  *       500:
  *         description: Error registering new user.
  */
+
+/**
+ * @swagger
+ * /refresh_token:
+ *   post:
+ *     summary: Refresh Access Token
+ *     description: Allows a user to obtain a new access token by providing a valid refresh token.
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - refreshToken
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *                 description: Refresh token received during login or previous token refresh.
+ *     responses:
+ *       200:
+ *         description: Successfully generated a new access token.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   description: New JWT access token.
+ *       400:
+ *         description: Invalid refresh token.
+ *       401:
+ *         description: No refresh token provided.
+ */
+
 
 //GET USER DATA
 
