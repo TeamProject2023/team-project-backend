@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 const router = Router();
 router.use(cookieParser())
 import { User } from '../db/models/userModel';
+import {RefreshToken} from "../db/models/refreshToken";``
 import {DecodedToken, UserType} from "../types";
 
 export const authMiddleware = (req: any, res: Response, next: NextFunction) => { // FIX REQ TYPE
@@ -41,7 +42,7 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign({ userId: user._id }, SECRET_KEY, { expiresIn: '12h' });
 
         // Refresh token
-        const refreshToken = jwt.sign({ userId: user._id }, REFRESH_SECRET, { expiresIn: '7d' });
+        const refreshToken = await  RefreshToken.createToken(user)
         res.status(200).send({ token, refreshToken });
     } catch (error) {
         res.status(500).send('Internal server error');
@@ -49,28 +50,47 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/refresh_token', async (req, res) => {
-    const REFRESH_SECRET = process.env.REFRESH_SECRET || 'generic_refresh'
+    const REFRESH_SECRET = process.env.REFRESH_TOKEN_SECRET || 'generic_refresh'
     const SECRET_KEY = process.env.SECRET_KEY || 'generic';
-
     const {refreshToken} = req.body;
+
+    if (!refreshToken) {
+        return res.status(401).send('No refresh token provided');
+    }
+
     try {
-        if (!refreshToken) {
-            return res.status(401).send('No refresh token provided');
+        const dbToken = await RefreshToken.findOne({ token: refreshToken })
+        if (!dbToken) {
+            res.status(400).send('Invalid refresh token.(server)');
+            return;
         }
         const decoded : any = jwt.verify(refreshToken, REFRESH_SECRET);
         const token = jwt.sign({ userId: decoded.userId}, SECRET_KEY, { expiresIn: '12h' });
         res.status(200).send({token});
     }
     catch (error) {
-        res.status(400).send('Invalid refresh token.');
+        await RefreshToken.findOneAndDelete({ token: refreshToken });
+        res.status(400).send('Invalid refresh token.(expired)');
     }
 
 });
 
 
 router.post('/logout', async (req, res) => {
-    // manage logout on client side
-})
+    const { refreshToken } = req.body;
+    try {
+        const token = await RefreshToken.findOneAndDelete({ token: refreshToken }).lean();
+        if (token) {
+            res.status(201).send('Logged out successfully');
+        } else {
+            res.status(400).send('Refresh token not found');
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).send('Internal server error');
+    }
+});
+
 // Register Route
 router.post('/register', async (req, res) => {
     try {

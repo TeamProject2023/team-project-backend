@@ -36,11 +36,40 @@
  *                 token:
  *                   type: string
  *                   description: JWT token for authenticated user.
+ *                 refreshToken:
+ *                   type: string
+ *                   description: JWT token for issuing new access token for user.
  *       400:
  *         description: User does not exist.
  *       401:
  *         description: Wrong password.
  *       500:
+ *         description: Internal server error.
+ */
+
+/**
+ * @swagger
+ * /logout:
+ *   post:
+ *     summary: User Logout
+ *     description: Unvalidate user's refresh token. Manage removing access token on client-side
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - refreshToken
+ *             properties:
+ *               refreshToken:
+ *                 type: string
+ *                 description: refreshToken to unvalidate.
+ *     responses:
+ *       201:
+ *         description: Logout successful.
+ *       501:
  *         description: Internal server error.
  */
 
