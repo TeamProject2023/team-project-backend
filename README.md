@@ -76,8 +76,9 @@
     "infoId": 0,
     "infoText": "string"
   }
-}
+  }
   ```
+  
 ## Medical Routes
 
 - ### `GET /medicalData`
@@ -85,16 +86,16 @@
   - **Status Codes:** 200 (Data retrieved), 500 (Internal server error).
   - ### **Example value**
   ```
-{
-"patientId": "string",
-"diagnosis": "string",
-"treatmentPlan": {
-"medication": "string",
-"dosage": "string",
-"frequency": "string"
-},
-"nextAppointment": "2023-11-18"
-}
+  {
+   "patientId": "string",
+   "diagnosis": "string",
+   "treatmentPlan": {
+   "medication": "string",
+   "dosage": "string",
+   "frequency": "string"
+  },
+   "nextAppointment": "2023-11-18"
+  }
   ```
 
 - ### `POST /patientDiagnosis`
@@ -102,18 +103,18 @@
   - **Status Codes:** 200 (Diagnosis provided), 400 (Bad request), 500 (Internal server error).
   - ### **Request body**
   ```
-{
-"age": 0,
-"symptoms": [
-"string"
-]
-}
+  {
+  "age": 0,
+  "symptoms": [
+  "string"
+  ]
+  }
   ```
   - ### **Example value**
   ```
-{
-"diagnosis": "string"
-}
+  {
+  "diagnosis": "string"
+  }
   ```
 
 
