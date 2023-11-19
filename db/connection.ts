@@ -4,7 +4,6 @@ dotenv.config();
 const uri : string = process.env.CLOUD_DB_URI || 'NO URI';
 
 const dbConnect = () => {
-    console.log(uri)
     mongoose.connect(uri)
         .then(() => console.log('Connected to MongoDB...'))
         .catch(err => console.error('Could not connect to MongoDB...', err));

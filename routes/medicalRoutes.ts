@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-
+import { PythonShell } from 'python-shell'
 const router = express.Router();
 
 // Mock medical data route
@@ -15,7 +15,7 @@ router.get('/medicalData', (req, res) => {
         nextAppointment: '2023-12-01'
     };
 
-    res.json(medicalData);
+    return res.json(medicalData);
 });
 
 router.post('/patientDiagnosis', (req: Request, res: Response) => {
@@ -29,7 +29,30 @@ router.post('/patientDiagnosis', (req: Request, res: Response) => {
         diagnosis = 'Migraine';
     }
 
-    res.json({ diagnosis });
+    return res.json({ diagnosis });
 });
+
+router.post('/predictHeartDisease', (req,res) => {
+    const {age, cholesterol, pressure} = req.body;
+
+    let negativeChance = 0;
+    let positiveChance  = 0;
+
+    let options = {
+        scriptPath: './models',
+        args: [age, cholesterol, pressure]
+    }
+
+    try {
+        PythonShell.run('test.py', options).then(messages=>{
+            negativeChance = parseFloat(messages[0].slice(2, -2).split(' ')[0])
+            positiveChance = parseFloat(messages[0].slice(2, -2).split(' ')[1])
+            return res.status(201).json({negativeChance, positiveChance});
+        });
+    } catch (err) {
+        return res.status(500).send('Internal server error')
+    }
+
+} )
 
 export default router;
