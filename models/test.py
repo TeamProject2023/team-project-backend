@@ -1,10 +1,10 @@
-import joblib
+from joblib import load
 import os
 import sys
 #print("Current Directory:", os.getcwd())
 
 # Load the joblib model
-model = joblib.load('./models/HeartDiseaseModel.joblib')
+model = load('./models/HeartDiseaseModel.joblib')
 
 # Test data
 input_data = sys.argv[1:] # [num, num, num]
