@@ -116,5 +116,22 @@
   "diagnosis": "string"
   }
   ```
-
+- ### `POST /predictHeartDisease`
+  - **Returns:** Object representing positive and negative chance for a heart disease
+  - **Status Codes:** 200 (Chances provided), 400 (Incorrect data), 500 (Internal server error).
+  - ### **Request body**
+  ```
+  {
+  "age": "string",
+  "cholesterol": "string",
+  "pressure" : "string"
+  }
+  ```
+  - ### **Example value**
+  ```
+  {
+  "negativeChance" : "float",
+  "positiveChance" : "float"
+  }
+  ```
 

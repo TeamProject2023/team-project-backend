@@ -33,7 +33,16 @@ router.post('/patientDiagnosis', (req: Request, res: Response) => {
 });
 
 router.post('/predictHeartDisease', (req,res) => {
-    const {age, cholesterol, pressure} = req.body;
+    let {age, cholesterol, pressure} = req.body;
+
+    if (!age || !cholesterol || !pressure){
+        return res.status(400).send('Incorrect data');
+    }
+    if (typeof age !== 'string' || typeof cholesterol !== 'string' || typeof pressure !== 'string'){
+        age = age.toString()
+        cholesterol = cholesterol.toString()
+        pressure = pressure.toString()
+    }
 
     let negativeChance = 0;
     let positiveChance  = 0;
@@ -48,7 +57,7 @@ router.post('/predictHeartDisease', (req,res) => {
             negativeChance = parseFloat(messages[0].slice(2, -2).split(' ')[0])
             positiveChance = parseFloat(messages[0].slice(2, -2).split(' ')[1])
             return res.status(201).json({negativeChance, positiveChance});
-        });
+        }).catch(err => {return res.status(500).send('Internal server error')});
     } catch (err) {
         return res.status(500).send('Internal server error')
     }
