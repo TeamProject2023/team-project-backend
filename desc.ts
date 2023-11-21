@@ -269,3 +269,50 @@
  *       500:
  *         description: Internal server error.
  */
+
+/**
+ * @swagger
+ * /predictHeartDisease:
+ *   post:
+ *     summary: Predict Heart Disease
+ *     description: Returns the probability of having or not having a heart disease based on the provided data.
+ *     tags: [Medical]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               age:
+ *                 type: string
+ *                 description: Age of the individual
+ *               cholesterol:
+ *                 type: string
+ *                 description: Cholesterol level
+ *               pressure:
+ *                 type: string
+ *                 description: Blood pressure level
+ *             example:
+ *               age: "55"
+ *               cholesterol: "240"
+ *               pressure: "120"
+ *     responses:
+ *       200:
+ *         description: Chances provided
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 negativeChance:
+ *                   type: number
+ *                   description: Probability of not having a heart disease
+ *                 positiveChance:
+ *                   type: number
+ *                   description: Probability of having a heart disease
+ *       400:
+ *         description: Incorrect data provided
+ *       500:
+ *         description: Internal server error
+ */

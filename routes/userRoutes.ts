@@ -43,9 +43,9 @@ router.post('/login', async (req, res) => {
 
         // Refresh token
         const refreshToken = await  RefreshToken.createToken(user)
-        res.status(200).send({ token, refreshToken });
+        return res.status(200).send({ token, refreshToken });
     } catch (error) {
-        res.status(500).send('Internal server error');
+        return res.status(500).send('Internal server error');
     }
 });
 
@@ -61,16 +61,17 @@ router.post('/refresh_token', async (req, res) => {
     try {
         const dbToken = await RefreshToken.findOne({ token: refreshToken })
         if (!dbToken) {
-            res.status(400).send('Invalid refresh token.(server)');
-            return;
+            return res.status(400).send('Invalid refresh token.(server)');
         }
         const decoded : any = jwt.verify(refreshToken, REFRESH_SECRET);
         const token = jwt.sign({ userId: decoded.userId}, SECRET_KEY, { expiresIn: '12h' });
-        res.status(200).send({token});
+        return res.status(200).send({token});
+
     }
     catch (error) {
         await RefreshToken.findOneAndDelete({ token: refreshToken });
-        res.status(400).send('Invalid refresh token.(expired)');
+        return res.status(400).send('Invalid refresh token.(expired)');
+
     }
 
 });
@@ -82,12 +83,15 @@ router.post('/logout', async (req, res) => {
         const token = await RefreshToken.findOneAndDelete({ token: refreshToken }).lean();
         if (token) {
             res.status(201).send('Logged out successfully');
+            return;
         } else {
             res.status(400).send('Refresh token not found');
+            return;
         }
     } catch (err) {
         console.log(err);
-        res.status(500).send('Internal server error');
+        return res.status(500).send('Internal server error');
+
     }
 });
 
@@ -98,13 +102,13 @@ router.post('/register', async (req, res) => {
         const existingUser = await User.findOne({ email });
 
         if (existingUser){
-            res.status(501).send('User already exists');
+            return res.status(501).send('User already exists');
         }
         const user = new User({ email, password, role: 'user'});
         await user.save();
-        res.status(201).send('User registered successfully');
+        return res.status(201).send('User registered successfully');
     } catch (error) {
-        res.status(500).send('Error registering new user');
+       return res.status(500).send('Error registering new user');
     }
 });
 
@@ -119,7 +123,7 @@ router.get('/getUserData',authMiddleware, async (req, res) => {
         arrayOfInfo: ['info1', 'info2'],
         infoObject: {infoId: 512523, infoText: 'coffee addiction'}
     }
-    res.send(mockData);
+    return res.send(mockData);
 });
 
 export default router;

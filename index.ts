@@ -16,7 +16,10 @@ dbConnect();
 const IP_ADDRESS = process.env.APP_IP || '0.0.0.0';
 const PORT = Number(process.env.APP_PORT) || 4500;
 
-app.use(cors()); // TODO: SPECIFY ORIGINS
+app.use(cors({
+    origin: '*',
+    optionsSuccessStatus: 200
+})); // TODO: SPECIFY ORIGINS
 app.use(express.json());
 
 //routes
