@@ -7,6 +7,8 @@ router.use(cookieParser())
 import { User } from '../db/models/userModel';
 import {RefreshToken} from "../db/models/refreshToken";``
 import {DecodedToken, UserType} from "../types";
+import crypto from 'crypto'
+import nodemailer from 'nodemailer';
 
 export const authMiddleware = (req: any, res: Response, next: NextFunction) => { // FIX REQ TYPE
     const SECRET_KEY = process.env.SECRET_KEY || 'generic'
@@ -21,6 +23,16 @@ export const authMiddleware = (req: any, res: Response, next: NextFunction) => {
         res.status(400).send('Invalid token.');
     }
 };
+
+const transporter = nodemailer.createTransport({
+    host: "smtp.mailgun.org",
+    port: 465,
+    secure: true,
+    auth: {
+        user: 'postmaster@sandbox97969bcf20824472b3c26c36d178ea32.mailgun.org',
+        pass: 'eef6f5ca9efee2a5597921a04f966b6a-5d2b1caa-f2882cdd'
+    }
+});
 // Login Route
 router.post('/login', async (req, res) => {
     try {
@@ -98,13 +110,19 @@ router.post('/logout', async (req, res) => {
 // Register Route
 router.post('/register', async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password, firstName, lastName, phone } = req.body;
         const existingUser = await User.findOne({ email });
 
         if (existingUser){
             return res.status(501).send('User already exists');
         }
-        const user = new User({ email, password, role: 'user'});
+        const user = new User({
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phone: phone,
+            password: password,
+            role: 'user'});
         await user.save();
         return res.status(201).send('User registered successfully');
     } catch (error) {
@@ -125,5 +143,73 @@ router.get('/getUserData',authMiddleware, async (req, res) => {
     }
     return res.send(mockData);
 });
+
+router.post('/requestPasswordReset', async (req, res) => {
+    const { email } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+
+        const resetToken = crypto.randomBytes(20).toString('hex');
+        // Token expiration in 1 hour
+        const resetTokenExpiration = Date.now() + 3600000;
+        const resetLink = `https://some-link.com/${resetToken}`
+
+        user.resetPasswordToken = resetToken;
+        user.resetPasswordExpires = resetTokenExpiration;
+        await user.save();
+
+        const response = await  transporter.sendMail({
+            from: "'MedAI Labs' <postmaster@sandbox97969bcf20824472b3c26c36d178ea32.mailgun.org>" , // sender address
+            to: email, // list of receivers
+            subject: "Password reset", // Subject line
+            text: `To reset your password, please follow the link: \n ${resetLink}`, // plain text body
+            html: `<h4>Hello ${user.firstName}</h4>
+                    <hr>
+                    <p>You requested a pasword reset on MedAI Labs website:</p>
+                        <h3>To reset your password, please follow the link:</h3>
+                        <p style="padding: 12px; border-left: 4px solid #d0d0d0; font-style: italic;">
+                        <a href=${resetLink}>${resetLink}</a>
+                    </p>
+            <p>
+            Best wishes,<br>MedAI Labs team
+            </p>`, // html body
+        });
+
+       // if (response.info.status !== 200) return  res.status(503).send('Error sending an email');
+
+        return res.status(200).send('Password reset link sent to your email');
+    } catch (error) {
+        console.log(error)
+        return  res.status(500).send('Internal Server Error');
+    }
+});
+
+router.post('/resetPassword', async (req, res) => {
+    const { token, newPassword } = req.body;
+    try {
+        const user = await User.findOne({
+            resetPasswordToken: token,
+            resetPasswordExpires: { $gt: Date.now() }
+        });
+
+        if (!user) {
+            return res.status(400).send('Password reset token is invalid or has expired.');
+        }
+
+        user.password = newPassword;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+        await user.save();
+
+       return res.status(200).send('Your password has been updated.');
+    } catch (error) {
+       return res.status(500).send('Internal Server Error');
+    }
+});
+
 
 export default router;

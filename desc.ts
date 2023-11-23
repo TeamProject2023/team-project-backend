@@ -143,7 +143,69 @@
  *         description: Invalid refresh token.
  *       401:
  *         description: No refresh token provided.
+ *
+ * @swagger
+ * /requestPasswordReset:
+ *   post:
+ *     summary: Request Password Reset
+ *     description: Sends a password reset link to the user's email if the account exists.
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: User's email address
+ *     responses:
+ *       200:
+ *         description: Password reset link sent to your email
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
+ *
+ * @swagger
+ * /resetPassword:
+ *   post:
+ *     summary: Reset Password
+ *     description: Allows a user to reset their password using a valid reset token.
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - token
+ *               - newPassword
+ *             properties:
+ *               token:
+ *                 type: string
+ *                 description: Password reset token
+ *               newPassword:
+ *                 type: string
+ *                 format: password
+ *                 description: New password
+ *     responses:
+ *       200:
+ *         description: Your password has been updated
+ *       400:
+ *         description: Password reset token is invalid or has expired
+ *       500:
+ *         description: Internal server error
  */
+
+
 
 
 //GET USER DATA
