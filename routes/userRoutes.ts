@@ -1,36 +1,21 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
+import crypto from 'crypto'
+import nodemailer from 'nodemailer';
 import jwt, {Jwt, JwtPayload} from 'jsonwebtoken';
-import cookieParser from 'cookie-parser';
 const router = Router();
-router.use(cookieParser())
 import { User } from '../db/models/userModel';
 import {RefreshToken} from "../db/models/refreshToken";``
 import {DecodedToken, UserType} from "../types";
-import crypto from 'crypto'
-import nodemailer from 'nodemailer';
-
-export const authMiddleware = (req: any, res: Response, next: NextFunction) => { // FIX REQ TYPE
-    const SECRET_KEY = process.env.SECRET_KEY || 'generic'
-    try {
-        const token = req.headers.authorization?.split(' ')[1];
-        if (!token) return res.status(401).send('Access denied. No token provided.');
-
-        const decoded = jwt.verify(token, SECRET_KEY);
-        req.user = decoded;
-        next();
-    } catch (error) {
-        res.status(400).send('Invalid token.');
-    }
-};
+import {authMiddleware} from "../utils/authUtils";
 
 const transporter = nodemailer.createTransport({
     host: "smtp.mailgun.org",
     port: 465,
     secure: true,
     auth: {
-        user: 'postmaster@sandbox97969bcf20824472b3c26c36d178ea32.mailgun.org',
-        pass: 'eef6f5ca9efee2a5597921a04f966b6a-5d2b1caa-f2882cdd'
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS
     }
 });
 // Login Route
@@ -78,14 +63,12 @@ router.post('/refresh_token', async (req, res) => {
         const decoded : any = jwt.verify(refreshToken, REFRESH_SECRET);
         const token = jwt.sign({ userId: decoded.userId}, SECRET_KEY, { expiresIn: '12h' });
         return res.status(200).send({token});
-
     }
     catch (error) {
         await RefreshToken.findOneAndDelete({ token: refreshToken });
         return res.status(400).send('Invalid refresh token.(expired)');
 
     }
-
 });
 
 
@@ -114,7 +97,7 @@ router.post('/register', async (req, res) => {
         const existingUser = await User.findOne({ email });
 
         if (existingUser){
-            return res.status(501).send('User already exists');
+            return res.status(400).send('User already exists');
         }
         const user = new User({
             firstName: firstName,
@@ -161,22 +144,24 @@ router.post('/requestPasswordReset', async (req, res) => {
         user.resetPasswordToken = resetToken;
         user.resetPasswordExpires = resetTokenExpiration;
         await user.save();
-
+        const htmlMessage = `
+            <h4>Hello ${user.firstName}</h4>
+                <hr>
+            <p>You requested a pasword reset on MedAI Labs website:</p>
+                <h3>To reset your password, please follow the link:</h3>
+                <p style="padding: 12px; border-left: 4px solid #d0d0d0; font-style: italic;">
+                <a href=${resetLink}>${resetLink}</a>
+            </p>
+            <p>
+            Best wishes,<br>MedAI Labs team
+            </p>
+        `
         const response = await  transporter.sendMail({
             from: "'MedAI Labs' <postmaster@sandbox97969bcf20824472b3c26c36d178ea32.mailgun.org>" , // sender address
             to: email, // list of receivers
             subject: "Password reset", // Subject line
             text: `To reset your password, please follow the link: \n ${resetLink}`, // plain text body
-            html: `<h4>Hello ${user.firstName}</h4>
-                    <hr>
-                    <p>You requested a pasword reset on MedAI Labs website:</p>
-                        <h3>To reset your password, please follow the link:</h3>
-                        <p style="padding: 12px; border-left: 4px solid #d0d0d0; font-style: italic;">
-                        <a href=${resetLink}>${resetLink}</a>
-                    </p>
-            <p>
-            Best wishes,<br>MedAI Labs team
-            </p>`, // html body
+            html: ``, // html body
         });
 
        // if (response.info.status !== 200) return  res.status(503).send('Error sending an email');
