@@ -80,7 +80,7 @@
  * /register:
  *   post:
  *     summary: User Registration
- *     description: Registers a new user with their email and password.
+ *     description: Registers a new user with their details.
  *     tags: [Authentication]
  *     requestBody:
  *       required: true
@@ -91,6 +91,9 @@
  *             required:
  *               - email
  *               - password
+ *               - firstName
+ *               - lastName
+ *               - phone
  *             properties:
  *               email:
  *                 type: string
@@ -100,14 +103,24 @@
  *                 type: string
  *                 format: password
  *                 description: User's password.
+ *               firstName:
+ *                 type: string
+ *                 description: User's first name.
+ *               lastName:
+ *                 type: string
+ *                 description: User's last name.
+ *               phone:
+ *                 type: string
+ *                 description: User's phone number.
  *     responses:
  *       201:
  *         description: User registered successfully.
- *       501:
+ *       400:
  *         description: User already exists.
  *       500:
  *         description: Error registering new user.
  */
+
 
 /**
  * @swagger

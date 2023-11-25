@@ -34,6 +34,6 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, IP_ADDRESS, function () {
-    return console.log("MedApp backend running " + IP_ADDRESS + ":" + PORT);
+    return console.log('\x1b[32m%s\x1b[0m',"MedApp backend running " + IP_ADDRESS + ":" + PORT);
 });
 

@@ -14,7 +14,12 @@ type DecodedToken = {
 type Role = 'admin' | 'user';
 
 type UserType = {
-    email: string;
-    password: string;
-    role: Role
-}
+    firstName: string
+    lastName: string
+    email: string
+    password: string
+    phone: string
+    role: 'admin' | 'user'
+    resetPasswordToken: string | undefined
+    resetPasswordExpires: number | undefined
+};

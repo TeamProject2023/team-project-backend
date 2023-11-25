@@ -161,7 +161,7 @@ router.post('/requestPasswordReset', async (req, res) => {
             to: email, // list of receivers
             subject: "Password reset", // Subject line
             text: `To reset your password, please follow the link: \n ${resetLink}`, // plain text body
-            html: ``, // html body
+            html: htmlMessage, // html body
         });
 
        // if (response.info.status !== 200) return  res.status(503).send('Error sending an email');
