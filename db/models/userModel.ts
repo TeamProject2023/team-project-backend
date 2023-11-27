@@ -7,7 +7,7 @@ type UserType = {
     email: string
     password: string
     phone: string
-    role: 'admin' | 'user'
+    role: 'doctor' | 'user'
     resetPasswordToken: string | undefined
     resetPasswordExpires: number | undefined
 };
@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema<UserType>({
     password: { type: String, required: true },
     role: {
         type: String,
-        enum: ['admin', 'user'],
+        enum: ['doctor', 'user'],
         default: 'user'
     },
     resetPasswordToken: String,

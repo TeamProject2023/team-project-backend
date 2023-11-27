@@ -2,6 +2,81 @@
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     Appointment:
+ *       type: object
+ *       properties:
+ *         _id:
+ *            type: string
+ *         patientRef:
+ *           type: string
+ *         doctorRef:
+ *           type: string
+ *         appointmentType:
+ *           type: string
+ *         date:
+ *           type: string
+ *           format: DD-MM-YYYY
+ *         time:
+ *           type: string
+ *         status:
+ *           type: string
+ *       required:
+ *         - _id
+ *         - patientRef
+ *         - doctorRef
+ *         - date
+ *         - time
+ *         - status
+ *     User:
+ *       type: object
+ *       required:
+ *         - firstName
+ *         - lastName
+ *         - email
+ *         - phone
+ *         - password
+ *       properties:
+ *         firstName:
+ *           type: string
+ *         lastName:
+ *           type: string
+ *         email:
+ *           type: string
+ *           format: email
+ *         phone:
+ *           type: string
+ *         password:
+ *           type: string
+ *           format: password
+ *         role:
+ *           type: string
+ *           enum: [doctor, user]
+ *           default: user
+ *         resetPasswordToken:
+ *           type: string
+ *         resetPasswordExpires:
+ *           type: string
+ *     Doctor:
+ *       allOf:
+ *         - $ref: '#/components/schemas/User'
+ *         - type: object
+ *           required:
+ *             - specialty
+ *             - workHours
+ *           properties:
+ *             specialty:
+ *               type: string
+ *             workHours:
+ *               type: array
+ *               items:
+ *                 type: string
+ */
+
+
+/**
+ * @swagger
  * /login:
  *   post:
  *     summary: User Login
@@ -218,9 +293,6 @@
  *         description: Internal server error
  */
 
-
-
-
 //GET USER DATA
 
 /**
@@ -302,6 +374,215 @@
  *       500:
  *         description: Internal server error.
  */
+
+/**
+ * @swagger
+ * /checkAppointmentSlots:
+ *   get:
+ *     tags:
+ *       - Medical
+ *     summary: Check Appointment Slots
+ *     description: Checks available appointment slots for a given date, field, and type.
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: date
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The date to check for availability.
+ *       - in: query
+ *         name: field
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The medical field of the appointment.
+ *       - in: query
+ *         name: type
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The type of the appointment.
+ *     responses:
+ *       200:
+ *         description: List of available slots
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *       400:
+ *         description: Not enough arguments
+ *       500:
+ *         description: Internal server error
+ */
+
+/**
+ * @swagger
+ * /createAppointment:
+ *   post:
+ *     tags:
+ *       - Medical
+ *     summary: Create Appointment
+ *     description: Creates a new appointment.
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - date
+ *               - time
+ *               - field
+ *               - type
+ *               - isVirtual
+ *             properties:
+ *               date:
+ *                 type: string
+ *                 format: date
+ *                 description: Date of the appointment.
+ *               time:
+ *                 type: string
+ *                 description: Time of the appointment.
+ *               field:
+ *                 type: string
+ *                 description: Medical field of the appointment.
+ *               type:
+ *                 type: string
+ *                 description: Type of the appointment (e.g., consultation, check-up).
+ *               isVirtual:
+ *                 type: boolean
+ *                 description: Whether the appointment is virtual.
+ *     responses:
+ *       200:
+ *         description: Appointment scheduled successfully.
+ *       400:
+ *         description: No doctors available.
+ *       500:
+ *         description: Internal server error.
+ */
+
+/**
+ * @swagger
+ * /rescheduleAppointment/{appointmentId}:
+ *   put:
+ *     tags:
+ *       - Medical
+ *     summary: Reschedule an Appointment
+ *     description: Reschedules an appointment to a new date and time.
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: appointmentId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Unique ID of the appointment.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - newDate
+ *               - newTime
+ *             properties:
+ *               newDate:
+ *                 type: string
+ *                 format: DD-MM-YYYY
+ *               newTime:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Appointment successfully rescheduled
+ *       500:
+ *         description: Internal server error
+ *
+ * /changeStatus/{appointmentId}:
+ *   put:
+ *     tags:
+ *       - Medical
+ *     summary: Change Appointment Status
+ *     description: Changes the status of an appointment.
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: appointmentId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Unique ID of the appointment.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - newStatus
+ *             properties:
+ *               newStatus:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Appointment status successfully updated
+ *       500:
+ *         description: Internal server error
+ */
+
+
+/**
+ * @swagger
+ * /getAllAppointments:
+ *   get:
+ *     tags:
+ *       - Medical
+ *     summary: Get All Appointments
+ *     description: Retrieves all appointments (for testing purposes).
+ *     responses:
+ *       200:
+ *         description: A list of all appointments
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Appointment'
+ *       500:
+ *         description: Internal server error
+ *
+ * /getAppointments:
+ *   get:
+ *     tags:
+ *       - Medical
+ *     summary: Get User Appointments
+ *     description: Retrieves appointments for the logged-in user, based on their role.
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of user-specific appointments
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                $ref: '#/components/schemas/Appointment'
+ *       400:
+ *         description: Error retrieving user's data
+ *       500:
+ *         description: Internal server error
+ */
+
+
 
 /**
  * @swagger
@@ -390,4 +671,56 @@
  *         description: Incorrect data provided
  *       500:
  *         description: Internal server error
+ *
  */
+
+/**
+ * @swagger
+ * /getPracticeFields:
+ *   get:
+ *     tags:
+ *       - utils
+ *     summary: Get Practice Fields
+ *     description: Retrieves a list of medical practice fields.
+ *     responses:
+ *       200:
+ *         description: A list of practice fields
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *               example:
+ *                 - General Practice
+ *                 - Infectious Diseases
+ *                 - Gastroenterology
+ *                 # ... other fields
+ *       500:
+ *         description: Internal server error
+ *
+ * /getAppointmentTypes:
+ *   get:
+ *     tags:
+ *       - utils
+ *     summary: Get Appointment Types
+ *     description: Retrieves a list of appointment types.
+ *     responses:
+ *       200:
+ *         description: A list of appointment types
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *               example:
+ *                 - Consultation
+ *                 - Follow-Up
+ *                 - Examination
+ *                 - Lab Tests
+ *                 - Surgery
+ *       500:
+ *         description: Internal server error
+ */
+

@@ -2,11 +2,14 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
-import swaggerDocument from './swagger'; // Ensure this path is correct
+import swaggerDocument from './swagger';
 
 import dbConnect from './db/connection';
 import userRoutes from './routes/userRoutes';
 import medicalRoutes from './routes/medicalRoutes';
+
+import {getObjectFromJSON, inputDoctors} from './utils/JSONutils'
+import appointmentRoutes from "./routes/appointmentRoutes";
 
 dotenv.config();
 
@@ -25,6 +28,7 @@ app.use(express.json());
 //routes
 app.use(userRoutes);
 app.use(medicalRoutes);
+app.use(appointmentRoutes)
 
 //swagger initialization
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -37,3 +41,6 @@ app.listen(PORT, IP_ADDRESS, function () {
     return console.log('\x1b[32m%s\x1b[0m',"MedApp backend running " + IP_ADDRESS + ":" + PORT);
 });
 
+getObjectFromJSON('diseases_symptoms.json');
+getObjectFromJSON('sorted_symptoms.json');
+//inputDoctors('doctors_list.json');

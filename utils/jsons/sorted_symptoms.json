@@ -1,0 +1,298 @@
+[
+    {
+        "symptom": "Fever",
+        "occurrences": 13
+    },
+    {
+        "symptom": "Nausea",
+        "occurrences": 9
+    },
+    {
+        "symptom": "Vomiting",
+        "occurrences": 9
+    },
+    {
+        "symptom": "Diarrhea",
+        "occurrences": 8
+    },
+    {
+        "symptom": "Fatigue",
+        "occurrences": 7
+    },
+    {
+        "symptom": "Loss of appetite",
+        "occurrences": 7
+    },
+    {
+        "symptom": "Chills",
+        "occurrences": 6
+    },
+    {
+        "symptom": "Abdominal pain",
+        "occurrences": 6
+    },
+    {
+        "symptom": "Cough",
+        "occurrences": 5
+    },
+    {
+        "symptom": "Headache",
+        "occurrences": 5
+    },
+    {
+        "symptom": "Runny nose",
+        "occurrences": 5
+    },
+    {
+        "symptom": "Painful swallowing",
+        "occurrences": 4
+    },
+    {
+        "symptom": "Sore throat",
+        "occurrences": 4
+    },
+    {
+        "symptom": "Stomach pain",
+        "occurrences": 4
+    },
+    {
+        "symptom": "Weight loss",
+        "occurrences": 4
+    },
+    {
+        "symptom": "Body aches",
+        "occurrences": 3
+    },
+    {
+        "symptom": "Stomach cramps",
+        "occurrences": 3
+    },
+    {
+        "symptom": "Sneezing",
+        "occurrences": 2
+    },
+    {
+        "symptom": "Stuffy nose",
+        "occurrences": 2
+    },
+    {
+        "symptom": "Tiredness",
+        "occurrences": 2
+    },
+    {
+        "symptom": "Difficulty breathing",
+        "occurrences": 2
+    },
+    {
+        "symptom": "Headaches",
+        "occurrences": 2
+    },
+    {
+        "symptom": "Loss of taste",
+        "occurrences": 2
+    },
+    {
+        "symptom": "Pain in chest",
+        "occurrences": 2
+    },
+    {
+        "symptom": "Yellow skin or eye whites",
+        "occurrences": 2
+    },
+    {
+        "symptom": "Diarrhea bloody",
+        "occurrences": 2
+    },
+    {
+        "symptom": "Night sweats",
+        "occurrences": 2
+    },
+    {
+        "symptom": "Coughing",
+        "occurrences": 2
+    },
+    {
+        "symptom": "Skin rash",
+        "occurrences": 2
+    },
+    {
+        "symptom": "Frequent urination",
+        "occurrences": 2
+    },
+    {
+        "symptom": "Pain in penis/vagina",
+        "occurrences": 2
+    },
+    {
+        "symptom": "Hoarseness",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Runny eyes",
+        "occurrences": 1
+    },
+    {
+        "symptom": "\u0421hills",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Muscle aches",
+        "occurrences": 1
+    },
+    {
+        "symptom": "\u0418ody aches",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Loss of smell",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Trouble breathing",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Pressure in chest",
+        "occurrences": 1
+    },
+    {
+        "symptom": "New confusion",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Inability to wake up from sleep",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Bluish lips or face",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Abdominal cramping",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Swollen lymph nodes",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Dark urine",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Pale or clay-colored stool",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Aching joints",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Congestion",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Mild headache",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Decreased appetite",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Wheezing",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Noisy breathing",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Gray skin color",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Blue skin color",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Coughing up blood or sputum.",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Weakness",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Repeated coughing",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Whooping sound when inhaling",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Aches",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Flank pain",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Lower back pain",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Blood in your pee",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Pain when you pee",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Persistent abdominal pain",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Swollen abdomen",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Distended abdomen",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Scaling skin",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Skin plaques",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Flat patches on skin",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Itchy skin",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Hair loss",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Bloating",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Dehydration",
+        "occurrences": 1
+    },
+    {
+        "symptom": "Anemia",
+        "occurrences": 1
+    }
+]
