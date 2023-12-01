@@ -727,5 +727,90 @@
  *                 - Surgery
  *       500:
  *         description: Internal server error
+ * /getSymptoms:
+ *   get:
+ *     tags:
+ *       - utils
+ *     summary: Get List of Symptoms
+ *     description: Retrieves a list of possible symptoms
+ *     responses:
+ *       200:
+ *         description: A list of symptoms
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *       500:
+ *         description: Internal server error
+ * /getSymptomsToDisease:
+ *   get:
+ *     tags:
+ *       - utils
+ *     summary: Get Symptoms to Disease Mapping
+ *     description: Retrieves a mapping of diseases to their associated symptoms.
+ *     responses:
+ *       200:
+ *         description: A mapping of diseases to symptoms
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   nameOfDisease:
+ *                     type: string
+ *                     description: The name of the disease
+ *                   symptoms:
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *                     description: List of symptoms associated with the disease
+ *       500:
+ *         description: Internal server error
+ * /getDiseaseToSpecialty:
+ *   get:
+ *     tags:
+ *       - utils
+ *     summary: Get Disease to Specialty Mapping
+ *     description: Retrieves a mapping of medical specialties to their associated diseases.
+ *     responses:
+ *       200:
+ *         description: A mapping of specialties to diseases
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   specialty:
+ *                     type: string
+ *                     description: The medical specialty
+ *                   diseases:
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *                     description: List of diseases associated with the specialty
+ *       500:
+ *         description: Internal server error
+ * /getDoctors:
+ *   get:
+ *     tags:
+ *       - utils
+ *     summary: Get List of Doctors
+ *     description: Retrieves a list of all doctors.
+ *     responses:
+ *       200:
+ *         description: A list of doctors
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Doctor'
+ *       500:
+ *         description: Internal server error
  */
-

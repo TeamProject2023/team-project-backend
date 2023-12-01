@@ -1,6 +1,6 @@
 [
     {
-        "nameOfDisease": "common cold",
+        "nameOfDisease": "Common cold",
         "symptoms": [
             "Fever",
             "Chills",
@@ -15,7 +15,7 @@
         ]
     },
     {
-        "nameOfDisease": "flu",
+        "nameOfDisease": "The flu",
         "symptoms": [
             "Fever",
             "Chills",
@@ -72,7 +72,7 @@
         ]
     },
     {
-        "nameOfDisease": "hepatitis",
+        "nameOfDisease": "Hepatitis",
         "symptoms": [
             "Cough",
             "Runny nose",
@@ -103,7 +103,7 @@
         ]
     },
     {
-        "nameOfDisease": "strep throat",
+        "nameOfDisease": "Strep throat",
         "symptoms": [
             "Diarrhea",
             "Diarrhea bloody",
@@ -116,7 +116,7 @@
         ]
     },
     {
-        "nameOfDisease": "salmonella",
+        "nameOfDisease": "Salmonella",
         "symptoms": [
             "Cough",
             "Pain in chest",
@@ -132,7 +132,7 @@
         ]
     },
     {
-        "nameOfDisease": "tuberculosis",
+        "nameOfDisease": "Tuberculosis",
         "symptoms": [
             "Fever",
             "Coughing",

@@ -4,6 +4,7 @@ import {UserType} from "../types";
 import {User} from "../db/models/userModel";
 import {Doctor} from "../db/models/doctorModel";
 import Appointment from "../db/models/appointmentModel";
+import {getObjectFromJSON} from "../utils/JSONutils";
 const router = Router();
 
 const fields : string[] = [
@@ -47,6 +48,32 @@ router.get('/getPracticeFields', async (req,res) =>{
 
 router.get('/getAppointmentTypes', async (req,res) =>{
     return res.status(200).json(appointmentTypes)
+})
+
+router.get('/getSymptoms',async (req,res) =>{
+    const symptoms = await getObjectFromJSON('sorted_symptoms.json')
+    const symptomsNames = symptoms.map((symptom: { symptom: any; }) => {
+        return symptom.symptom;
+    })
+    return res.status(200).json(symptomsNames)
+})
+router.get('/getSymptomsToDisease',async (req,res) =>{
+    const diseases = await getObjectFromJSON('diseases_symptoms.json')
+    return res.status(200).json(diseases)
+})
+router.get('/getDiseaseToSpecialty',async (req,res) =>{
+    const diseases = await getObjectFromJSON('disease_specialty.json')
+    return res.status(200).json(diseases)
+})
+
+router.get('/getDoctors', async (req, res) => {
+    try{
+        const doctors = await Doctor.find().lean()
+        return res.status(200).json(doctors)
+    } catch(err) {
+        console.error(err)
+        return res.status(500).send("Internal server error");
+    }
 })
 
 // FOR TESTING PURPOSES

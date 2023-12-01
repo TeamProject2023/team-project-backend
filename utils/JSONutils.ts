@@ -4,21 +4,14 @@ import {Doctor} from "../db/models/doctorModel";
 import {Transform} from "stream";
 
 export const getObjectFromJSON = async (filename: string) =>{
-    fs.readFile(`./utils/jsons/${filename}`, 'utf8', (err, data) => {
-        if (err) {
-            console.error('Error reading the file', err);
-            return;
-        }
-        try {
-            const obj = JSON.parse(data);
-            return obj;
-
-        } catch (err) {
-            console.error('Error parsing JSON string:', err);
-        }
-    });
-
-
+    try{
+        const data =  fs.readFileSync(`./utils/jsons/${filename}`, 'utf8')
+        const obj = JSON.parse(data);
+        return obj;
+    } catch (err){
+        console.error('Error reading the file', err);
+        return;
+    }
 }
 
 export const inputDoctors = async (filename: string) => {

@@ -43,4 +43,5 @@ app.listen(PORT, IP_ADDRESS, function () {
 
 getObjectFromJSON('diseases_symptoms.json');
 getObjectFromJSON('sorted_symptoms.json');
+getObjectFromJSON('disease_specialty.json');
 //inputDoctors('doctors_list.json');
