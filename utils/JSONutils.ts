@@ -30,7 +30,7 @@ export const inputDoctors = async (filename: string) => {
             resetPasswordToken: undefined,  // If applicable
             resetPasswordExpires: undefined,  // If applicable
             specialty: doctor.specialty,
-            workHours: doctor.workHours,  // Assuming work_hours is an array
+            workHours: doctor.workHours,
         })));
         console.log(processedDoctors)
         for (let doc of processedDoctors){

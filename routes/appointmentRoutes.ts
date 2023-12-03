@@ -1,6 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import {authMiddleware} from "../utils/authUtils";
-import {UserType} from "../types";
+import {DoctorType, UserType} from "../types";
 import {User} from "../db/models/userModel";
 import {Doctor} from "../db/models/doctorModel";
 import Appointment from "../db/models/appointmentModel";
@@ -42,12 +42,19 @@ const timeSlots = [
     '15:00', '15:30', '16:00', '16:30', '17:00'
 ];
 
+const statuses = [ 'Scheduled', 'Completed', 'Canceled' ];
+
+
 router.get('/getPracticeFields', async (req,res) =>{
     return res.status(200).json(fields)
 })
 
 router.get('/getAppointmentTypes', async (req,res) =>{
     return res.status(200).json(appointmentTypes)
+})
+
+router.get('/getAppointmentStatuses',async (req,res) =>{
+    return res.status(200).json(statuses)
 })
 
 router.get('/getSymptoms',async (req,res) =>{
@@ -68,12 +75,35 @@ router.get('/getDiseaseToSpecialty',async (req,res) =>{
 
 router.get('/getDoctors', async (req, res) => {
     try{
-        const doctors = await Doctor.find().lean()
-        return res.status(200).json(doctors)
+        const doctors: DoctorType[] = await Doctor.find().lean()
+        const doctorsCleaned = doctors.map(({ resetPasswordExpires, resetPasswordToken, password, ...rest }) => rest);
+
+        return res.status(200).json(doctorsCleaned)
     } catch(err) {
         console.error(err)
         return res.status(500).send("Internal server error");
     }
+})
+
+router.get('/getDoctor/:doctorId', async (req,res) =>{
+
+    const { doctorId } = req.params;
+    try{
+        const doctor = await Doctor.findById(doctorId).lean();
+
+        if(doctor){
+            delete doctor.password;
+            delete doctor.resetPasswordToken;
+            delete doctor.resetPasswordExpires;
+            return res.status(200).json(doctor)
+        }
+        return res.status(400).send("Doctor not found")
+
+    } catch (err){
+        return res.status(500).send("Internal server error");
+    }
+
+
 })
 
 // FOR TESTING PURPOSES
@@ -202,10 +232,6 @@ router.post('/createAppointment',authMiddleware, async (req,res)=>{
             appointment.save()
             return res.status(200).send(`Appointment scheduled on ${date} ${time}`)
         }
-        else {
-            return res.status(400).send("No doctors available")
-        }
-
     } catch (err){
         return res.status(500).send("Internal server error")
     }

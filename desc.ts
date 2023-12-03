@@ -43,6 +43,8 @@
  *         - phone
  *         - password
  *       properties:
+ *         _id:
+ *           type: string
  *         firstName:
  *           type: string
  *         lastName:
@@ -466,8 +468,6 @@
  *     responses:
  *       200:
  *         description: Appointment scheduled successfully.
- *       400:
- *         description: No doctors available.
  *       500:
  *         description: Internal server error.
  */
@@ -813,4 +813,28 @@
  *                 $ref: '#/components/schemas/Doctor'
  *       500:
  *         description: Internal server error
+ * /getDoctor/{doctorId}:
+ *     get:
+ *       tags:
+ *         - utils
+ *       summary: Get Doctor by ID
+ *       description: Retrieves details of a specific doctor by their ID.
+ *       parameters:
+ *         - name: doctorId
+ *           in: path
+ *           required: true
+ *           description: Unique identifier of the doctor
+ *           schema:
+ *             type: string
+ *       responses:
+ *         200:
+ *           description: Doctor details
+ *           content:
+ *             application/json:
+ *               schema:
+ *                 $ref: '#/components/schemas/Doctor'
+ *         400:
+ *           description: Doctor not found
+ *         500:
+ *           description: Internal server error
  */

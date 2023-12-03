@@ -58,7 +58,7 @@ router.post('/refresh_token', async (req, res) => {
     try {
         const dbToken = await RefreshToken.findOne({ token: refreshToken })
         if (!dbToken) {
-            return res.status(400).send('Invalid refresh token.(server)');
+            return res.status(401).send('Invalid refresh token.(server)');
         }
         const decoded : any = jwt.verify(refreshToken, REFRESH_SECRET);
         const token = jwt.sign({ userId: decoded.userId}, SECRET_KEY, { expiresIn: '12h' });
@@ -66,7 +66,7 @@ router.post('/refresh_token', async (req, res) => {
     }
     catch (error) {
         await RefreshToken.findOneAndDelete({ token: refreshToken });
-        return res.status(400).send('Invalid refresh token.(expired)');
+        return res.status(401).send('Invalid refresh token.(expired)');
 
     }
 });
