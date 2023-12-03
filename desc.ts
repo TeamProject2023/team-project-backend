@@ -727,6 +727,27 @@
  *                 - Surgery
  *       500:
  *         description: Internal server error
+ * /getAppointmentStatuses:
+ *   get:
+ *     tags:
+ *       - utils
+ *     summary: Get Appointment Statuses
+ *     description: Retrieves a list of possible appointment statuses.
+ *     responses:
+ *       200:
+ *         description: A list of appointment types
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: string
+ *               example:
+ *                 - Scheduled
+ *                 - Completed
+ *                 - Canceled
+ *       500:
+ *         description: Internal server error
  * /getSymptoms:
  *   get:
  *     tags:
