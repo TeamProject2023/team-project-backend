@@ -164,12 +164,12 @@ router.get("/checkAppointmentSlots",authMiddleware, async (req,res)=>{
 
     let reserved_iter = 0;
     for (let i = 0; i<timeSlots.length;i){
-        if (timeSlots.indexOf(reservedTimeSlots[reserved_iter].time) - i >= reuiredSlots){
+        if (timeSlots.indexOf(reservedTimeSlots[reserved_iter]?.time) - i >= reuiredSlots){
             availableSlots.push(timeSlots[i]);
             i++;
         }
         else {
-            i = timeSlots.indexOf(reservedTimeSlots[reserved_iter].time) + reservedTimeSlots[reserved_iter].type;
+            i = timeSlots.indexOf(reservedTimeSlots[reserved_iter]?.time) + reservedTimeSlots[reserved_iter]?.type || 0;
             if (reserved_iter < reservedTimeSlots.length - 1){
                 reserved_iter++;
             } else {
