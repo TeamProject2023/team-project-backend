@@ -1,5 +1,5 @@
 import { Router, Request, Response, NextFunction } from 'express';
-import {authMiddleware} from "../utils/authUtils";
+import {authMiddleware, formatDate} from "../utils/authUtils";
 import {DoctorType, UserType} from "../types";
 import {User} from "../db/models/userModel";
 import {Doctor} from "../db/models/doctorModel";
@@ -141,6 +141,8 @@ router.get("/checkAppointmentSlots",authMiddleware, async (req,res)=>{
         type,
     } = req.query;
 
+    const formattedDate = formatDate(Number(date))
+
     if (!date || !field || !type){
         return res.status(400).send('Not enough arguments')
     }
@@ -149,7 +151,7 @@ router.get("/checkAppointmentSlots",authMiddleware, async (req,res)=>{
     let availableSlots: string[] = [];
 
     const existingAppointments = await Appointment.find({
-        'date': date,
+        'date': formattedDate,
         'field': field,
         'status': 'Scheduled'
     }).lean();
@@ -190,8 +192,10 @@ router.put('/rescheduleAppointment/:appointmentId',authMiddleware, async (req, r
     const { appointmentId } = req.params;
     const { newDate, newTime } = req.body;
 
+    const formattedDate = formatDate(Number(newDate))
+
     try {
-        const updatedAppointment = await Appointment.findByIdAndUpdate(appointmentId, { date: newDate, time: newTime }, { new: true });
+        const updatedAppointment = await Appointment.findByIdAndUpdate(appointmentId, { date: formattedDate, time: newTime }, { new: true });
         res.status(200).json(updatedAppointment);
     } catch (error) {
         res.status(500).send('Internal server error');
