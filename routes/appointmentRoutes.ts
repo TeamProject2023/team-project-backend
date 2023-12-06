@@ -218,6 +218,7 @@ router.post('/createAppointment',authMiddleware, async (req,res)=>{
     const user : UserType | null = await User.findById(req.user.userId);
 
     const {date,time, field, type, isVirtual} = req.body;
+    const formattedDate = formatDate(Number(date))
 
     try{
         const doctor = await Doctor.findOne({'specialty': field})
@@ -225,7 +226,7 @@ router.post('/createAppointment',authMiddleware, async (req,res)=>{
             const appointment = new Appointment({
                 patientRef: req.user.userId,
                 doctorRef: doctor._id,
-                date: date,
+                date: formattedDate,
                 time: time,
                 field: field,
                 appointmentType: type,

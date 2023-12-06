@@ -115,7 +115,7 @@ router.post('/register', async (req, res) => {
 
 // Dummy Get User Data Route
 router.get('/getUserData',authMiddleware, async (req, res) => {
-    const user : UserType | null = await User.findById(req.user.userId)
+    const user : UserType | null = await User.findById(req.user.userId).lean()
 
     const mockData = {
         username: user?.email || 'Generic user',
@@ -124,7 +124,10 @@ router.get('/getUserData',authMiddleware, async (req, res) => {
         arrayOfInfo: ['info1', 'info2'],
         infoObject: {infoId: 512523, infoText: 'coffee addiction'}
     }
-    return res.send(mockData);
+
+
+
+    return res.send(user);
 });
 
 router.post('/requestPasswordReset', async (req, res) => {

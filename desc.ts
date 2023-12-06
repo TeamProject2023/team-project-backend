@@ -79,6 +79,52 @@
  *               type: array
  *               items:
  *                 type: string
+ *     InputData:
+ *       type: object
+ *       required:
+ *         - cholesterol
+ *         - age
+ *         - bloodPressure
+ *       properties:
+ *         cholesterol:
+ *           type: string
+ *         age:
+ *           type: string
+ *         bloodPressure:
+ *           type: string
+ *
+ *     Result:
+ *       type: object
+ *       required:
+ *         - negativeChance
+ *         - positiveChance
+ *       properties:
+ *         negativeChance:
+ *           type: string
+ *         positiveChance:
+ *           type: string
+ *
+ *     Prediction:
+ *       type: object
+ *       required:
+ *         - userRef
+ *         - date
+ *         - time
+ *         - inputData
+ *         - result
+ *       properties:
+ *         userRef:
+ *           type: string
+ *           format: uuid
+ *           description: Reference to the user
+ *         date:
+ *           type: string
+ *         time:
+ *           type: string
+ *         inputData:
+ *           $ref: '#/components/schemas/InputData'
+ *         result:
+ *           $ref: '#/components/schemas/Result'
  */
 
 
@@ -338,7 +384,68 @@
  *         description: Access denied. No token provided or invalid token.
  *       500:
  *         description: Internal server error.
+ * /savePredictionResult:
+ *   post:
+ *     tags:
+ *       - User Data
+ *     summary: Save Prediction Result
+ *     description: Saves the result of a prediction for a user.
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - negativeChance
+ *               - positiveChance
+ *               - age
+ *               - cholesterol
+ *               - bloodPressure
+ *             properties:
+ *               negativeChance:
+ *                 type: number
+ *               positiveChance:
+ *                 type: number
+ *               age:
+ *                 type: number
+ *               cholesterol:
+ *                 type: number
+ *               bloodPressure:
+ *                 type: number
+ *     responses:
+ *       200:
+ *         description: Data recorded successfully
+ *       400:
+ *         description: Not enough arguments
+ *       500:
+ *         description: Internal server error
+ *
+ * /getPatientPredictionHistory:
+ *   get:
+ *     tags:
+ *       - User Data
+ *     summary: Get Patient Prediction History
+ *     description: Retrieves the prediction history for a user.
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Prediction history of the user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Prediction' # Define Prediction schema in components/schemas
+ *       204:
+ *         description: No records of the user
+ *       500:
+ *         description: Internal server error
  */
+
 
 /**
  * @swagger
@@ -549,7 +656,7 @@
  * /getAllAppointments:
  *   get:
  *     tags:
- *       - Medical
+ *       - User Data
  *     summary: Get All Appointments
  *     description: Retrieves all appointments (for testing purposes).
  *     responses:
@@ -567,7 +674,7 @@
  * /getAppointments:
  *   get:
  *     tags:
- *       - Medical
+ *       - User Data
  *     summary: Get User Appointments
  *     description: Retrieves appointments for the logged-in user, based on their role.
  *     security:

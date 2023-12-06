@@ -7,6 +7,7 @@ import swaggerDocument from './swagger';
 import dbConnect from './db/connection';
 import userRoutes from './routes/userRoutes';
 import medicalRoutes from './routes/medicalRoutes';
+import predictionRoutes from "./routes/predictionRoutes";
 
 import {getObjectFromJSON, inputDoctors} from './utils/JSONutils'
 import appointmentRoutes from "./routes/appointmentRoutes";
@@ -28,7 +29,8 @@ app.use(express.json());
 //routes
 app.use(userRoutes);
 app.use(medicalRoutes);
-app.use(appointmentRoutes)
+app.use(appointmentRoutes);
+app.use(predictionRoutes);
 
 //swagger initialization
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
