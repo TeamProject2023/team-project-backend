@@ -176,7 +176,7 @@ router.get("/checkAppointmentSlots",authMiddleware, async (req,res)=>{
                 reserved_iter++;
             } else {
                 if (reservedTimeSlots.some(appointment => appointment.time === '17:00')){
-                    console.log(availableSlots)
+                    //console.log(availableSlots)
                     return res.status(200).json(availableSlots)
                 }
                 else {
@@ -215,16 +215,16 @@ router.put('/changeStatus/:appointmentId',authMiddleware, async (req, res) => {
 });
 
 router.post('/createAppointment',authMiddleware, async (req,res)=>{
-    const user : UserType | null = await User.findById(req.user.userId);
+    const user = await User.findById(req.user.userId).lean();
 
     const {date,time, field, type, isVirtual} = req.body;
     const formattedDate = formatDate(Number(date))
 
     try{
-        const doctor = await Doctor.findOne({'specialty': field})
-        if(doctor){
+        const doctor = await Doctor.findOne({'specialty': field}).lean()
+        if(doctor && user){
             const appointment = new Appointment({
-                patientRef: req.user.userId,
+                patientRef: user._id,
                 doctorRef: doctor._id,
                 date: formattedDate,
                 time: time,

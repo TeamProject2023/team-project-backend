@@ -56,3 +56,63 @@ type PredictionType = {
     inputData: InputDataType
     result: ResultType
 }
+
+import { Document } from 'mongoose';
+
+type PastSurgery = {
+    type: string;
+    date: Date;
+};
+
+type CurrentMedication = {
+    medication: string;
+    dosage: string;
+};
+
+type Immunization = {
+    vaccine: string;
+    date: Date;
+};
+
+type EmergencyContact = {
+    name: string;
+    relationship: string;
+    phone: string;
+};
+
+type InsuranceInfo = {
+    provider: string;
+    policyNumber: string;
+};
+
+type ContactInfo = {
+    address?: string;
+    phone?: string;
+    email?: string;
+};
+
+type MedicalRecord = Document & {
+    patientRef: mongoose.Schema.Types.ObjectId; // Assuming user_id is stored as a string
+    date_of_birth: string;
+    gender: string;
+    contact_info: ContactInfo;
+    height?: number;
+    weight?: number;
+    bmi?: number;
+    blood_type?: string;
+    rh_factor?: string;
+    allergies: string[];
+    chronic_conditions: string[];
+    past_surgeries: PastSurgery[];
+    current_medications: CurrentMedication[];
+    immunizations: Immunization[];
+    family_hereditary_conditions: string[];
+    smoking_status?: string;
+    alcohol_consumption?: string;
+    exercise_habits?: string;
+    emergency_contact: EmergencyContact;
+    insurance_info: InsuranceInfo;
+    consent_to_treat: boolean;
+    privacy_agreement: boolean;
+    doctors_notes?: string;
+};
