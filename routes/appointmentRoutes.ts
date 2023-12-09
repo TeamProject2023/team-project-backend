@@ -241,4 +241,39 @@ router.post('/createAppointment',authMiddleware, async (req,res)=>{
     }
 })
 
+router.get('/upcomingAppointment', authMiddleware, async (req,res) =>{
+    const user = await User.findById(req.user.userId).lean();
+
+    if (!user){
+        return res.status(401).send("User cant be found")
+    }
+    let appointments: any[] = [];
+    try {
+        if (user.role === 'doctor'){
+            appointments = await Appointment.find({'doctorRef': user._id}).lean();
+        } else {
+            appointments = await Appointment.find({'patientRef': user._id}).lean();
+        }
+
+        const closestAppointment = appointments.reduce((closest, current) => {
+            const formatDate = (dateStr: string) => {
+                const [day, month, year] = dateStr.split('-');
+                return new Date(`${year}-${month}-${day} ${current.time}`).getTime();
+            };
+
+            const currentDate = new Date().getTime();
+            const currentDifference = Math.abs(currentDate - formatDate(current.date));
+            const closestDifference = closest ? Math.abs(currentDate - formatDate(closest.date)) : Infinity;
+
+            return currentDifference < closestDifference ? current : closest;
+        }, null);
+
+
+        console.log(appointments)
+        return res.status(200).json(closestAppointment)
+    } catch(err){
+        return res.status(500).send("Internal server error")
+    }
+})
+
 export default router;
