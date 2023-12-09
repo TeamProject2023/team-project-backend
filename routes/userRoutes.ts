@@ -113,21 +113,12 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// Dummy Get User Data Route
 router.get('/getUserData',authMiddleware, async (req, res) => {
-    const user : UserType | null = await User.findById(req.user.userId).lean()
-
-    const mockData = {
-        username: user?.email || 'Generic user',
-        role: user?.role || 'unknown role',
-        randomInfo1: 'User is retarded',
-        arrayOfInfo: ['info1', 'info2'],
-        infoObject: {infoId: 512523, infoText: 'coffee addiction'}
+    const user : UserType | null = await User.findById(req.user.userId).select("-password -resetPasswordExpires -resetPasswordToken").lean()
+    if (!user) {
+        return res.status(400).send("No user found");
     }
-
-
-
-    return res.send(user);
+    return res.status(200).json(user);
 });
 
 router.post('/requestPasswordReset', async (req, res) => {
