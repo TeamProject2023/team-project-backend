@@ -359,31 +359,15 @@
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: User data retrieved successfully.
+ *         description: User data retrieved successfully
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 username:
- *                   type: string
- *                 randomInfo1:
- *                   type: string
- *                 arrayOfInfo:
- *                   type: array
- *                   items:
- *                     type: string
- *                 infoObject:
- *                   type: object
- *                   properties:
- *                     infoId:
- *                       type: integer
- *                     infoText:
- *                       type: string
+ *               $ref: '#/components/schemas/User' # Ensure this schema is defined in components/schemas
  *       401:
  *         description: Access denied. No token provided or invalid token.
- *       500:
- *         description: Internal server error.
+ *       400:
+ *         description: No user found
  * /savePredictionResult:
  *   post:
  *     tags:
@@ -442,6 +426,27 @@
  *                 $ref: '#/components/schemas/Prediction' # Define Prediction schema in components/schemas
  *       204:
  *         description: No records of the user
+ *       500:
+ *         description: Internal server error
+ * /upcomingAppointment:
+ *   get:
+ *     tags:
+ *       - User Data
+ *     summary: Get Upcoming Appointment
+ *     description: Retrieves upcoming appointments for the logged-in user, based on their role (doctor or patient).
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: A list of upcoming appointments
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Appointment' # Ensure this schema is defined in components/schemas
+ *       401:
+ *         description: User can't be found
  *       500:
  *         description: Internal server error
  */
