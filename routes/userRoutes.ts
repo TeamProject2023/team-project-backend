@@ -61,7 +61,7 @@ router.post('/refresh_token', async (req, res) => {
             return res.status(401).send('Invalid refresh token.(server)');
         }
         const decoded : any = jwt.verify(refreshToken, REFRESH_SECRET);
-        const token = jwt.sign({ userId: decoded.userId}, SECRET_KEY, { expiresIn: '12h' });
+        const token = jwt.sign({ userId: decoded.id}, SECRET_KEY, { expiresIn: '12h' });
         return res.status(200).send({token});
     }
     catch (error) {

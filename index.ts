@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger';
+import bodyParser from "body-parser";
 
 import dbConnect from './db/connection';
 import userRoutes from './routes/userRoutes';
@@ -25,13 +26,13 @@ app.use(cors({
     optionsSuccessStatus: 200
 })); // TODO: SPECIFY ORIGINS
 app.use(express.json());
+app.use(bodyParser.json())
 
 //routes
 app.use(userRoutes);
 app.use(medicalRoutes);
 app.use(appointmentRoutes);
 app.use(predictionRoutes);
-
 //swagger initialization
 app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

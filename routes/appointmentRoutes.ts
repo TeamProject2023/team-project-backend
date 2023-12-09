@@ -6,7 +6,6 @@ import {Doctor} from "../db/models/doctorModel";
 import Appointment from "../db/models/appointmentModel";
 import {getObjectFromJSON} from "../utils/JSONutils";
 const router = Router();
-
 const fields : string[] = [
     "General Practice",
     "Infectious Diseases",
