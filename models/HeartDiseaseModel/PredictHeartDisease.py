@@ -4,7 +4,9 @@ import sys
 #print("Current Directory:", os.getcwd())
 
 # Load the joblib model
-model = load('./models/HeartDiseaseModel.joblib')
+script_dir = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(script_dir, 'HeartDiseaseModel.joblib')
+model = load(model_path)
 
 # Test data
 input_data = sys.argv[1:] # [num, num, num]

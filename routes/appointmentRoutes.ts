@@ -250,9 +250,9 @@ router.get('/upcomingAppointment', authMiddleware, async (req,res) =>{
     let appointments: any[] = [];
     try {
         if (user.role === 'doctor'){
-            appointments = await Appointment.find({'doctorRef': user._id}).lean();
+            appointments = await Appointment.find({'doctorRef': user._id, 'status': 'Scheduled'}).lean();
         } else {
-            appointments = await Appointment.find({'patientRef': user._id}).lean();
+            appointments = await Appointment.find({'patientRef': user._id, 'status': 'Scheduled'}).lean();
         }
 
         const closestAppointment = appointments.reduce((closest, current) => {
@@ -269,7 +269,6 @@ router.get('/upcomingAppointment', authMiddleware, async (req,res) =>{
         }, null);
 
 
-        console.log(appointments)
         return res.status(200).json(closestAppointment)
     } catch(err){
         return res.status(500).send("Internal server error")

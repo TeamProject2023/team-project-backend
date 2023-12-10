@@ -53,7 +53,7 @@ router.post('/patientDiagnosis', (req: Request, res: Response) => {
 //     }
 //
 //     try {
-//         PythonShell.run('test.py', options).then(messages=>{
+//         PythonShell.run('PredictHeartDisease.py', options).then(messages=>{
 //             negativeChance = parseFloat(messages[0].slice(2, -2).split(' ')[0])
 //             positiveChance = parseFloat(messages[0].slice(2, -2).split(' ')[1])
 //             return res.status(201).json({negativeChance, positiveChance});

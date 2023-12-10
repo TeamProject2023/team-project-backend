@@ -38,23 +38,39 @@ type DoctorType = {
     resetPasswordExpires: number | undefined
 };
 
-type InputDataType = {
-    age: string
-    cholesterol: string
-    bloodPressure: string
+type HeartDiseaseInputType = {
+    cholesterol: string;
+    age: string;
+    bloodPressure: string;
 }
 
-type ResultType  = {
-    negativeChance: string
-    positiveChance: string
+
+type HeartDiseaseResultType = {
+    negativeChance: string;
+    positiveChance: string;
 }
+
+type BrainStrokeInputType = {
+    gender: string;
+    age: string;
+    hypertension: string;
+    heart_disease: string;
+    ever_married: string;
+    work_type: string;
+    Residence_type: string;
+    avg_glucose_level: string;
+    bmi: string;
+    smoking_status: string;
+}
+
 
 type PredictionType = {
     userRef: mongoose.Schema.Types.ObjectId;
     date: string
     time: string
-    inputData: InputDataType
-    result: ResultType
+    model: string
+    inputData: HeartDiseaseInputType | BrainStrokeInputType
+    result: HeartDiseaseResultType | number
 }
 
 import { Document } from 'mongoose';

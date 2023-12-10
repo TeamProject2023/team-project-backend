@@ -79,7 +79,7 @@
  *               type: array
  *               items:
  *                 type: string
- *     InputData:
+ *     HeartDiseaseInput:
  *       type: object
  *       required:
  *         - cholesterol
@@ -92,8 +92,7 @@
  *           type: string
  *         bloodPressure:
  *           type: string
- *
- *     Result:
+ *     HeartDiseaseResult:
  *       type: object
  *       required:
  *         - negativeChance
@@ -103,7 +102,40 @@
  *           type: string
  *         positiveChance:
  *           type: string
- *
+ *     BrainStrokeInput:
+ *       type: object
+ *       required:
+ *         - gender
+ *         - age
+ *         - hypertension
+ *         - heart_disease
+ *         - ever_married
+ *         - work_type
+ *         - Residence_type
+ *         - avg_glucose_level
+ *         - bmi
+ *         - smoking_status
+ *       properties:
+ *         gender:
+ *           type: string
+ *         age:
+ *           type: string
+ *         hypertension:
+ *           type: string
+ *         heart_disease:
+ *           type: string
+ *         ever_married:
+ *           type: string
+ *         work_type:
+ *           type: string
+ *         Residence_type:
+ *           type: string
+ *         avg_glucose_level:
+ *           type: string
+ *         bmi:
+ *           type: string
+ *         smoking_status:
+ *           type: string
  *     Prediction:
  *       type: object
  *       required:
@@ -116,15 +148,16 @@
  *         userRef:
  *           type: string
  *           format: uuid
- *           description: Reference to the user
  *         date:
  *           type: string
  *         time:
  *           type: string
  *         inputData:
- *           $ref: '#/components/schemas/InputData'
+ *           type: object
+ *           additionalProperties: true # This allows inputData to be flexible as it's a Mixed type
  *         result:
- *           $ref: '#/components/schemas/Result'
+ *           type: object
+ *           additionalProperties: true # This allows result to be flexible as it's a Mixed type
  */
 
 
@@ -368,12 +401,12 @@
  *         description: Access denied. No token provided or invalid token.
  *       400:
  *         description: No user found
- * /savePredictionResult:
+ * /saveHeartDiseasePrediction:
  *   post:
  *     tags:
  *       - User Data
- *     summary: Save Prediction Result
- *     description: Saves the result of a prediction for a user.
+ *     summary: Save Heart Disease Prediction
+ *     description: Records the prediction result for heart disease.
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -390,23 +423,78 @@
  *               - bloodPressure
  *             properties:
  *               negativeChance:
- *                 type: number
+ *                 type: string
  *               positiveChance:
- *                 type: number
+ *                 type: string
  *               age:
- *                 type: number
+ *                 type: string
  *               cholesterol:
- *                 type: number
+ *                 type: string
  *               bloodPressure:
- *                 type: number
+ *                 type: string
  *     responses:
  *       200:
- *         description: Data recorded successfully
+ *         description: Heart disease prediction data recorded
  *       400:
  *         description: Not enough arguments
  *       500:
  *         description: Internal server error
- *
+ * /saveBrainStrokePrediction:
+ *   post:
+ *     tags:
+ *       - User Data
+ *     summary: Save Brain Stroke Prediction
+ *     description: Records the prediction result for brain stroke.
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - positiveChance
+ *               - gender
+ *               - age
+ *               - hypertension
+ *               - heart_disease
+ *               - ever_married
+ *               - work_type
+ *               - Residence_type
+ *               - avg_glucose_level
+ *               - bmi
+ *               - smoking_status
+ *             properties:
+ *               positiveChance:
+ *                 type: string
+ *               gender:
+ *                 type: string
+ *               age:
+ *                 type: string
+ *               hypertension:
+ *                 type: string
+ *               heart_disease:
+ *                 type: string
+ *               ever_married:
+ *                 type: string
+ *               work_type:
+ *                 type: string
+ *               Residence_type:
+ *                 type: string
+ *               avg_glucose_level:
+ *                 type: string
+ *               bmi:
+ *                 type: string
+ *               smoking_status:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Brain stroke prediction data recorded
+ *       400:
+ *         description: Not enough arguments
+ *       500:
+ *         description: Internal server error
  * /getPatientPredictionHistory:
  *   get:
  *     tags:
@@ -776,19 +864,34 @@
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 negativeChance:
- *                   type: number
- *                   description: Probability of not having a heart disease
- *                 positiveChance:
- *                   type: number
- *                   description: Probability of having a heart disease
+ *               $ref: '#/components/schemas/HeartDiseaseResult'
  *       400:
  *         description: Incorrect data provided
  *       500:
  *         description: Internal server error
- *
+ * /predictBrainStroke:
+ *   post:
+ *     tags:
+ *       - Medical
+ *     summary: Predict Brain Stroke Chance
+ *     description: Predicts the chance of a brain stroke based on various factors.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/BrainStrokeInput'
+ *     responses:
+ *       201:
+ *         description: Prediction of brain stroke chance
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: number
+ *       400:
+ *         description: Not enough arguments
+ *       500:
+ *         description: Internal server error
  */
 
 /**
