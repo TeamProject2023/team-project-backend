@@ -1,6 +1,11 @@
 import {NextFunction, Response} from "express";
 import jwt from "jsonwebtoken";
-import {RefreshToken} from "../db/models/refreshToken";``
+import cron from 'node-cron';
+
+import {RefreshToken} from "../db/models/refreshToken";
+import Appointment from "../db/models/appointmentModel";
+
+``
 
 export const authMiddleware = (req: any, res: Response, next: NextFunction) => { // FIX REQ TYPE
     const SECRET_KEY = process.env.SECRET_KEY || 'generic'
@@ -62,6 +67,33 @@ export function formatDate(milliseconds: number) {
     return `${day}-${month}-${year}`;
 }
 
+const deleteOldAppointments = async () => {
+    const tenDaysAgo = new Date();
+    tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+    const formattedTenDaysAgo = tenDaysAgo.toISOString().split('T')[0];
+    try {
+        const result = await Appointment.deleteMany({
+            status: 'Canceled',
+            date: {
+                $lt: formatDateToComparable(formattedTenDaysAgo)
+            }
+        });
+        console.log(`Deleted ${result.deletedCount} old canceled appointments.`);
+    } catch (error) {
+        console.error('Error deleting old canceled appointments:', error);
+    }
+};
 
+const formatDateToComparable = (dateString: string): string => {
+    const [year, month, day] = dateString.split('-');
+    return `${day}-${month}-${year}`;
+};
+
+cron.schedule('0 0 * * *', () => {
+    console.log('Running a daily task to delete old canceled appointments');
+    deleteOldAppointments();
+});
+
+deleteOldAppointments();
 deleteOldTokens();
 deleteExpiredTokens();

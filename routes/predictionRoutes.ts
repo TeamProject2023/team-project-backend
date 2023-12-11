@@ -120,7 +120,7 @@ router.get("/getPatientPredictionHistory", authMiddleware, async (req, res) => {
 })
 
 
-router.post('/predictHeartDisease', (req,res) => {
+router.post('/predictHeartDisease',authMiddleware, (req,res) => {
     let {age, cholesterol, pressure} = req.body;
 
     if (!age || !cholesterol || !pressure){
@@ -152,7 +152,7 @@ router.post('/predictHeartDisease', (req,res) => {
 
 })
 
-router.post('/predictBrainStroke', async (req,res) => {
+router.post('/predictBrainStroke',authMiddleware, async (req,res) => {
     const {
         gender,
         age,
@@ -199,7 +199,7 @@ router.post('/predictBrainStroke', async (req,res) => {
     try {
         PythonShell.run('PredictBrainStroke.py', options).then(messages=>{
             chance = parseFloat(messages[0])
-            return res.status(201).json(chance);
+            return res.status(200).json(chance);
         }).catch(err => {return res.status(500).send(err)});
     } catch (err) {
         return res.status(500).send('Internal server error')

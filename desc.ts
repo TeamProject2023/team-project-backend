@@ -838,6 +838,8 @@
  *     summary: Predict Heart Disease
  *     description: Returns the probability of having or not having a heart disease based on the provided data.
  *     tags: [Medical]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -875,6 +877,8 @@
  *       - Medical
  *     summary: Predict Brain Stroke Chance
  *     description: Predicts the chance of a brain stroke based on various factors.
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:

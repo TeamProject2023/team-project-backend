@@ -268,8 +268,9 @@ router.get('/upcomingAppointment', authMiddleware, async (req,res) =>{
             return currentDifference < closestDifference ? current : closest;
         }, null);
 
-
         return res.status(200).json(closestAppointment)
+
+
     } catch(err){
         return res.status(500).send("Internal server error")
     }
