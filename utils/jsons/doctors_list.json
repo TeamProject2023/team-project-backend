@@ -1,0 +1,122 @@
+[
+    {
+        "firstName": "Geralt",
+        "lastName": "of Rivia",
+        "email": "geralt.of.rivia@medailabs.com",
+        "specialty": "General Practice",
+        "workHours": [
+            "9:00", "9:30", "10:00", "10:30", "11:00", "11:30",
+            "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+            "15:00", "15:30", "16:00", "16:30"
+        ]
+
+    },
+    {
+        "firstName": "Yennefer",
+        "lastName": "of Vengerberg",
+        "email": "yennefer.of.vengerberg@medailabs.com",
+        "specialty": "Infectious Diseases",
+        "workHours": [
+            "9:00", "9:30", "10:00", "10:30", "11:00", "11:30",
+            "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+            "15:00", "15:30", "16:00", "16:30"
+        ]
+
+    },
+    {
+        "firstName": "Ciri",
+        "lastName": "of Cintra",
+        "email": "ciri.of.cintra@medailabs.com",
+        "specialty": "Gastroenterology",
+        "workHours": [
+            "9:00", "9:30", "10:00", "10:30", "11:00", "11:30",
+            "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+            "15:00", "15:30", "16:00", "16:30"
+        ]
+
+    },
+    {
+        "firstName": "Triss",
+        "lastName": "Merigold",
+        "email": "triss.merigold@medailabs.com",
+        "specialty": "Dermatology",
+        "workHours": [
+            "9:00", "9:30", "10:00", "10:30", "11:00", "11:30",
+            "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+            "15:00", "15:30", "16:00", "16:30"
+        ]
+
+    },
+    {
+        "firstName": "Dandelion",
+        "lastName": "the Bard",
+        "email": "dandelion.the.bard@medailabs.com",
+        "specialty": "Urology",
+        "workHours": [
+            "9:00", "9:30", "10:00", "10:30", "11:00", "11:30",
+            "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+            "15:00", "15:30", "16:00", "16:30"
+        ]
+
+    },
+    {
+        "firstName": "Vesemir",
+        "lastName": "of Kaer Morhen",
+        "email": "vesemir.of.kaer.morhen@medailabs.com",
+        "specialty": "Gynecology",
+        "workHours": [
+            "9:00", "9:30", "10:00", "10:30", "11:00", "11:30",
+            "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+            "15:00", "15:30", "16:00", "16:30"
+        ]
+
+    },
+    {
+        "firstName": "Eskel",
+        "lastName": "the Witcher",
+        "email": "eskel.the.witcher@medailabs.com",
+        "specialty": "Venereology",
+        "workHours": [
+            "9:00", "9:30", "10:00", "10:30", "11:00", "11:30",
+            "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+            "15:00", "15:30", "16:00", "16:30"
+        ]
+
+    },
+    {
+        "firstName": "Lambert",
+        "lastName": "the Witcher",
+        "email": "lambert.the.witcher@medailabs.com",
+        "specialty": "Pulmonology",
+        "workHours": [
+            "9:00", "9:30", "10:00", "10:30", "11:00", "11:30",
+            "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+            "15:00", "15:30", "16:00", "16:30"
+        ]
+
+    },
+    {
+        "firstName": "Zoltan",
+        "lastName": "Chivay",
+        "email": "zoltan.chivay@medailabs.com",
+        "specialty": "Pediatrics",
+        "workHours": [
+            "9:00", "9:30", "10:00", "10:30", "11:00", "11:30",
+            "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+            "15:00", "15:30", "16:00", "16:30"
+        ]
+
+    },
+    {
+        "firstName": "Milva",
+        "lastName": "the Archer",
+        "email": "milva.the.archer@medailabs.com",
+        "specialty": "Parasitology",
+        "workHours": [
+            "9:00", "9:30", "10:00", "10:30", "11:00", "11:30",
+            "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+            "15:00", "15:30", "16:00", "16:30"
+        ]
+
+    }
+]

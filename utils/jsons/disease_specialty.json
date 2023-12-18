@@ -1,0 +1,61 @@
+[
+  {
+    "specialty": "Parasitology",
+    "diseases": [
+      "Pinworms",
+      "Hookworms",
+      "Giardiasis"
+    ]
+  },
+  {
+    "specialty": "Dermatology",
+    "diseases": [
+      "Ringworm",
+      "Thrush"
+    ]
+  },
+  {
+    "specialty": "Gastroenterology",
+    "diseases": [
+      "C. diff",
+      "E. coli",
+      "Stomach Flu",
+      "Hepatitis"
+    ]
+  },
+  {
+    "specialty": "Urology",
+    "diseases": [
+      "UTIs"
+    ]
+  },
+  {
+    "specialty": "Venereology",
+    "diseases": [
+      "STIs"
+    ]
+  },
+  {
+    "specialty": "Pulmonology",
+    "diseases": [
+      "Whooping Cough",
+      "Tuberculosis",
+      "RSV"
+    ]
+  },
+  {
+    "specialty": "Infectious Diseases",
+    "diseases": [
+      "COVID-19",
+      "The flu"
+    ]
+  },
+  {
+    "specialty": "General Practice",
+    "diseases": [
+      "Common cold",
+      "Salmonella",
+      "Strep throat"
+    ]
+  }
+]

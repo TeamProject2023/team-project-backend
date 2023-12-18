@@ -1,0 +1,256 @@
+[
+    {
+        "nameOfDisease": "Common cold",
+        "symptoms": [
+            "Fever",
+            "Chills",
+            "Body aches",
+            "Cough",
+            "Painful swallowing",
+            "Headache",
+            "Sore throat",
+            "Runny nose",
+            "Stuffy nose",
+            "Tiredness"
+        ]
+    },
+    {
+        "nameOfDisease": "The flu",
+        "symptoms": [
+            "Fever",
+            "Chills",
+            "Cough",
+            "Difficulty breathing",
+            "Tiredness",
+            "Muscle aches",
+            "Body aches",
+            "Headaches",
+            "Loss of smell",
+            "Sore throat",
+            "Runny nose",
+            "Nausea",
+            "Vomiting",
+            "Diarrhea",
+            "Loss of taste",
+            "Trouble breathing",
+            "Pressure in chest",
+            "Pain in chest",
+            "New confusion",
+            "Inability to wake up from sleep",
+            "Bluish lips or face"
+        ]
+    },
+    {
+        "nameOfDisease": "COVID-19",
+        "symptoms": [
+            "Diarrhea",
+            "Nausea",
+            "Vomiting",
+            "Loss of appetite",
+            "Abdominal pain",
+            "Abdominal cramping",
+            "Stomach pain",
+            "Fever",
+            "Chills",
+            "Fatigue",
+            "Body aches",
+            "Headaches",
+            "Swollen lymph nodes"
+        ]
+    },
+    {
+        "nameOfDisease": "Stomach Flu",
+        "symptoms": [
+            "Dark urine",
+            "Stomach pain",
+            "Yellow skin or eye whites",
+            "Pale or clay-colored stool",
+            "Fever",
+            "Loss of appetite",
+            "Fatigue",
+            "Aching joints"
+        ]
+    },
+    {
+        "nameOfDisease": "Hepatitis",
+        "symptoms": [
+            "Cough",
+            "Runny nose",
+            "Congestion",
+            "Sneezing",
+            "Sore throat",
+            "Mild headache",
+            "Painful swallowing",
+            "Fatigue",
+            "Fever",
+            "Decreased appetite",
+            "Difficulty breathing",
+            "Wheezing",
+            "Noisy breathing",
+            "Gray skin color",
+            "Blue skin color"
+        ]
+    },
+    {
+        "nameOfDisease": "RSV",
+        "symptoms": [
+            "Chills",
+            "Headache",
+            "Loss of appetite",
+            "Abdominal pain",
+            "Nausea",
+            "Vomiting"
+        ]
+    },
+    {
+        "nameOfDisease": "Strep throat",
+        "symptoms": [
+            "Diarrhea",
+            "Diarrhea bloody",
+            "Fever",
+            "Stomach pain",
+            "Stomach cramps",
+            "Nausea",
+            "Vomiting",
+            "Headache"
+        ]
+    },
+    {
+        "nameOfDisease": "Salmonella",
+        "symptoms": [
+            "Cough",
+            "Pain in chest",
+            "Painful swallowing",
+            "Coughing up blood or sputum.",
+            "Fatigue",
+            "Weakness",
+            "Loss of appetite",
+            "Weight loss",
+            "Chills",
+            "Fever",
+            "Night sweats"
+        ]
+    },
+    {
+        "nameOfDisease": "Tuberculosis",
+        "symptoms": [
+            "Fever",
+            "Coughing",
+            "Runny nose",
+            "Repeated coughing",
+            "Whooping sound when inhaling",
+            "Vomiting"
+        ]
+    },
+    {
+        "nameOfDisease": "Whooping Cough",
+        "symptoms": [
+            "Skin rash",
+            "Weight loss",
+            "Frequent urination",
+            "Pain in penis/vagina",
+            "Diarrhea",
+            "Night sweats",
+            "Aches",
+            "Fever",
+            "Chills",
+            "Yellow skin or eye whites"
+        ]
+    },
+    {
+        "nameOfDisease": "STIs",
+        "symptoms": [
+            "Abdominal pain",
+            "Flank pain",
+            "Lower back pain",
+            "Frequent urination",
+            "Fever",
+            "Chills",
+            "Pain in penis/vagina",
+            "Nausea",
+            "Vomiting",
+            "Blood in your pee",
+            "Pain when you pee"
+        ]
+    },
+    {
+        "nameOfDisease": "UTIs",
+        "symptoms": [
+            "Stomach pain",
+            "Stomach cramps",
+            "Diarrhea",
+            "Diarrhea bloody",
+            "Fatigue",
+            "Loss of appetite",
+            "Nausea",
+            "Vomiting",
+            "Fever"
+        ]
+    },
+    {
+        "nameOfDisease": "E. coli",
+        "symptoms": [
+            "Persistent abdominal pain",
+            "Abdominal pain",
+            "Swollen abdomen",
+            "Distended abdomen",
+            "Nausea",
+            "Vomiting",
+            "Loss of appetite",
+            "Fever"
+        ]
+    },
+    {
+        "nameOfDisease": "C. diff",
+        "symptoms": [
+            "Scaling skin",
+            "Skin plaques",
+            "Flat patches on skin",
+            "Itchy skin",
+            "Hair loss"
+        ]
+    },
+    {
+        "nameOfDisease": "Ringworm",
+        "symptoms": [
+            "Loss of taste",
+            "Sore throat",
+            "Painful swallowing"
+        ]
+    },
+    {
+        "nameOfDisease": "Thrush",
+        "symptoms": [
+            "Diarrhea",
+            "Fatigue",
+            "Nausea",
+            "Stomach cramps",
+            "Bloating",
+            "Dehydration",
+            "Weight loss"
+        ]
+    },
+    {
+        "nameOfDisease": "Giardiasis",
+        "symptoms": [
+            "Skin rash",
+            "Fever",
+            "Coughing",
+            "Abdominal pain",
+            "Loss of appetite",
+            "Diarrhea",
+            "Weight loss",
+            "Anemia"
+        ]
+    },
+    {
+        "nameOfDisease": "Hookworms",
+        "symptoms": [
+            "Diarrhea",
+            "Nausea",
+            "Vomiting",
+            "Abdominal pain",
+            "Headache"
+        ]
+    }
+]
